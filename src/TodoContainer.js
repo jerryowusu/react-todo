@@ -1,7 +1,8 @@
 import React from "react";
 import Header from "./Header";
 import TodosList from './TodosList';
-import InputTodo from "./InputTodo"
+import InputTodo from "./InputTodo";
+import { v4 as uuidv4 } from "uuid";
 
 
 class TodoContainer extends React.Component {
@@ -51,7 +52,7 @@ class TodoContainer extends React.Component {
 
         addTodoItem = (title) => {
             const newTodo = {
-                id: 4,
+                id: uuidv4(),
                 title: title,
                 completed: false
             };
