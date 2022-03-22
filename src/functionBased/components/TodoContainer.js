@@ -1,23 +1,16 @@
 import React, { useState, useEffect } from "react";
+import { Route, Switch } from "react-router-dom";
 import Header from "./Header";
 import TodosList from './TodosList';
 import InputTodo from "./InputTodo";
 import { v4 as uuidv4 } from "uuid";
+import About from "../../pages/About";
+import NoMatch from "../../pages/NoMatch";
+
 
 
 const TodoContainer = () => {
     const [todos, setTodos] = useState(getInitialTodos());
-
-    // useEffect(() => {
-    //     console.log("test run")
-
-    //     const temp = localStorage.getItem("todos")
-    //     const loadedTodos = JSON.parse(temp)
-
-    //     if(loadedTodos) {
-    //         setTodos(loadedTodos)
-    //     }
-    // }, [])
 
     function getInitialTodos() {
         const temp = localStorage.getItem("todos") 
@@ -72,6 +65,8 @@ const TodoContainer = () => {
         }
 
         return (
+            <Switch>
+            <Route exact path="/">
             <div className="container">
              <div className="inner">
                 <Header />
@@ -84,6 +79,14 @@ const TodoContainer = () => {
                 />
              </div>
             </div>
+            </Route>
+            <Route>
+                <About path="/"/>
+            </Route>
+            <Route path="*">
+                <NoMatch />
+            </Route>
+            </Switch>
         )
     }
 
