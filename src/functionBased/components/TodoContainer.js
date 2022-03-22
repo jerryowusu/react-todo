@@ -6,18 +6,24 @@ import { v4 as uuidv4 } from "uuid";
 
 
 const TodoContainer = () => {
-    const [todos, setTodos] = useState([]);
+    const [todos, setTodos] = useState(getInitialTodos());
 
-    useEffect(() => {
-        console.log("test run")
+    // useEffect(() => {
+    //     console.log("test run")
 
-        const temp = localStorage.getItem("todos")
-        const loadedTodos = JSON.parse(temp)
+    //     const temp = localStorage.getItem("todos")
+    //     const loadedTodos = JSON.parse(temp)
 
-        if(loadedTodos) {
-            setTodos(loadedTodos)
-        }
-    }, [])
+    //     if(loadedTodos) {
+    //         setTodos(loadedTodos)
+    //     }
+    // }, [])
+
+    function getInitialTodos() {
+        const temp = localStorage.getItem("todos") 
+        const savedTodos = JSON.parse(temp)
+        return savedTodos || []
+    }
 
     useEffect(() => {
         const temp = JSON.stringify(todos)
