@@ -1,24 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./TodoItem.module.css"
 
-class TodoItem extends React.Component {
-    state = {
-        editing: false,
+const TodoItem = (props) => {
+    const [editing, setEditing] = useState(false)
+
+   const handleEditing = () => {
+       setEditing(true)
     }
 
-    handleEditing = () => {
-        this.setState({
-            editing: true,
-        })
-    }
-
-    handleUpdateDone = (event) => {
+    const handleUpdateDone = (event) => {
         if(event.key === "Enter") {
-            this.setState({editing: false})
+            setEditing(false)
         }
     }
 
-    render() {
         const completedStyle = {
             fontStyle: "italic",
             color: "#595959",
@@ -26,12 +21,12 @@ class TodoItem extends React.Component {
             textDecoration: "line-through",
           }
 
-          const { completed, id, title } = this.props.todo;
+          const { completed, id, title } = props.todo;
 
           let viewMode = {};
           let editMode = {};
 
-          if(this.state.editing) {
+          if(editing) {
               viewMode.display = "none"
           } else {
               editMode.display = "none"
@@ -39,14 +34,14 @@ class TodoItem extends React.Component {
 
         return (
         <li className={styles.item}>
-            <div style={viewMode} onDoubleClick={this.handleEditing}>
+            <div style={viewMode} onDoubleClick={handleEditing}>
            <input 
            type="checkbox" 
            className={styles.checkbox}
            checked={completed} 
-           onChange={() => this.props.handleChangeProps(id)}
+           onChange={() => props.handleChangeProps(id)}
            />  
-           <button onClick={() => this.props.deleteTodoProps(this.props.todo.id)} >Delete</button>
+           <button onClick={() => props.deleteTodoProps(id)} >Delete</button>
            <span style={completed ? completedStyle : null}>
            {title}
            </span>
@@ -56,13 +51,13 @@ class TodoItem extends React.Component {
            className={styles.textInput} 
            value={title}
            onChange={e => {
-               this.props.setUpdate(e.target.value, id)
+               props.setUpdate(e.target.value, id)
            }}
-           onKeyDown={this.handleUpdateDone}
+           onKeyDown={handleUpdateDone}
            />
         </li>
             )
     }
-}
+
 
 export default TodoItem
