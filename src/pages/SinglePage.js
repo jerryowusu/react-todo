@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 
 
 const SinglePage = () => {
-    console.log(useParams());
+    // console.log(useParams());
+
     const aboutData = [
         {
             slug: "about-app",
